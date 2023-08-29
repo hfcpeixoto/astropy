@@ -1519,8 +1519,7 @@ class UnitBase:
 
         x = self.decompose(bases=bases)
         composed = x.compose(units=system)
-        composed = sorted(composed, key=score, reverse=True)
-        return composed
+        return sorted(composed, key=score, reverse=True)
 
     @lazyproperty
     def si(self):
