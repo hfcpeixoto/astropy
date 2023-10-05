@@ -1494,6 +1494,23 @@ def test_now():
     assert dt.total_seconds() < 0.1
 
 
+def test_timezone_awareness() -> None:
+    tza = datetime.datetime.now(tz=datetime.timezone.utc)
+    tzu = datetime.datetime.now()
+
+    t_tza = Time(tza)
+    t_tzu = Time(tzu)
+
+    assert t_tza.datetime.tzinfo == datetime.timezone.utc
+    assert t_tzu.datetime.tzinfo is None
+
+    t_tzu_now = Time.now()
+    t_tza_now = Time.now(tz=datetime.timezone.utc)
+
+    assert t_tzu_now.datetime.tzinfo is None
+    assert t_tza_now.datetime.tzinfo == datetime.timezone.utc
+
+
 def test_decimalyear():
     t = Time("2001:001", format="yday")
     assert t.decimalyear == 2001.0

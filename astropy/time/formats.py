@@ -1123,8 +1123,11 @@ class TimeDatetime(TimeUnique):
             # exception by trying to validate the value.
             self._select_subfmts(out_subfmt)
 
-        if timezone is not None:
-            if self._scale != "utc":
+        if self._scale == "utc":
+            if timezone is None:
+                timezone = datetime.timezone.utc
+        else:
+            if timezone is not None:
                 raise ScaleValueError(
                     f"scale is {self._scale}, must be 'utc' when timezone is supplied."
                 )

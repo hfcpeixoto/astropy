@@ -11,7 +11,7 @@ import enum
 import operator
 import os
 import threading
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from time import strftime
 from warnings import warn
 
@@ -1923,7 +1923,7 @@ class Time(TimeBase):
         return value
 
     @classmethod
-    def now(cls):
+    def now(cls, tz=None):
         """
         Creates a new object corresponding to the instant in time this
         method is called.
@@ -1941,7 +1941,7 @@ class Time(TimeBase):
             such a subclass) at the current time.
         """
         # call `now` immediately to be sure it's ASAP
-        dtnow = datetime.now(tz=timezone.utc)
+        dtnow = datetime.now(tz=tz)
         return cls(val=dtnow, format="datetime", scale="utc")
 
     info = TimeInfo()
